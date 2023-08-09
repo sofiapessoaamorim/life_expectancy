@@ -4,13 +4,10 @@
 This project is designed to load and clean life expectancy data from a provided CSV file. The main purpose of the script is to process the data, convert it into a more usable format, and save the cleaned data as a CSV file. 
 The structure of this project is as it follows:
 ```bash
-assignments
-├── life_expectancy    
-| ├── data             
-| └── tests            
-|                      
-├── pyproject.toml     
-|                      
+life_expectancy
+├──  data 
+├──  tests        
+├── pyproject.toml                           
 └── README.md          
 ```
 The cleaning.py script focuses on the data for a specific region.
