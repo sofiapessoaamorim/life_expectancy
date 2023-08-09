@@ -5,8 +5,9 @@ This project is designed to load and clean life expectancy data from a provided 
 The structure of this project is as it follows:
 ```bash
 life_expectancy
-├──  data 
-├──  tests        
+├── data 
+├── tests
+├── cleaning.py        
 ├── pyproject.toml                           
 └── README.md          
 ```
@@ -35,7 +36,7 @@ To use the script, follow these steps:
 5. Run the script using the following command, replacing `REGION_NAME` with the desired region's name (e.g., "PT" for Portugal):
 
 ```bash
-python script.py --region REGION_NAME
+python cleaning.py --region REGION_NAME
 ```
 
 ## The cleaned and processed data will be saved as `pt_life_expectancy.csv` in the `data` directory.
