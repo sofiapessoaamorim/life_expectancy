@@ -1,4 +1,5 @@
 # Life Expectancy Data Cleaning
+[![CI/CD Workflow](https://github.com/sofiapessoaamorim/life_expectancy/actions/workflows/run-tests.yaml/badge.svg?branch=ci)](https://github.com/sofiapessoaamorim/life_expectancy/actions/workflows/run-tests.yaml)
 
 This project is designed to load and clean life expectancy data from a provided CSV file. The main purpose of the script is to process the data, convert it into a more usable format, and save the cleaned data as a CSV file. 
 The structure of this project is as it follows:
