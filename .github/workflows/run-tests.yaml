@@ -30,7 +30,7 @@ jobs:
 
       - name: Run pytest
         run: |
-          pytest
+          pytest --cov
 
       - name: Run pylint
         run: |
