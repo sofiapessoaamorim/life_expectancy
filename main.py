@@ -23,7 +23,7 @@ def save_file_to_csv(df_melt: pd.DataFrame, region: str)-> None:
         region: data region
     """
     df_melt.to_csv(
-        f"data/{region.str.lower()}_life_expectancy.csv", 
+        f"data/{region.lower()}_life_expectancy.csv", 
         sep=",",
         index=False
     )
