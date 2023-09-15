@@ -15,30 +15,30 @@ def clean_data(region:str)-> pd.DataFrame:
     Returns:
         df_melt: melted dataframe
     """
-    data = get_data()
+    data = _get_data()
     value_cols = data.columns[:62]
     id_cols = data.columns[62:]
 
-    df_clean = identify_nans_convert_floats(data, value_cols)
-    df_melt = melt_dataframe(df_clean, id_cols, value_cols)
+    df_clean = _identify_nans_convert_floats(data, value_cols)
+    df_melt = _melt_dataframe(df_clean, id_cols, value_cols)
     df_melt = df_melt.dropna()
     df_melt = df_melt[df_melt["region"]==region].reset_index(drop=True)
     df_melt["year"] = df_melt["year"].astype("int")
 
     return df_melt
 
-def get_data()-> pd.DataFrame:
+def _get_data()-> pd.DataFrame:
     """Function to load life expectancy data
     
     Returns:
         df_split: dataframe with split columns
     """
     df_raw = load_csv_file()
-    df_split = preprocess_data(df_raw)
+    df_split = _preprocess_data(df_raw)
     return df_split
 
 
-def preprocess_data(df_raw: pd.DataFrame)-> pd.DataFrame:
+def _preprocess_data(df_raw: pd.DataFrame)-> pd.DataFrame:
     """Preprocesses raw data in a pandas DataFrame by splitting a column and cleaning column names.
 
     Args:
@@ -55,7 +55,7 @@ def preprocess_data(df_raw: pd.DataFrame)-> pd.DataFrame:
     return df_split
 
 
-def identify_nans_convert_floats(df_split: pd.DataFrame, value_cols: list)-> pd.DataFrame:
+def _identify_nans_convert_floats(df_split: pd.DataFrame, value_cols: list)-> pd.DataFrame:
     """Identifies NaN-like values in specified columns of a pandas DataFrame 
     and converts them to floats.
 
@@ -72,12 +72,12 @@ def identify_nans_convert_floats(df_split: pd.DataFrame, value_cols: list)-> pd.
         df_split[col] = (
             df_split[col]
                 .replace(":", np.nan, regex=True)
-                .apply(convert_value_to_float)
+                .apply(_convert_value_to_float)
         )
     return df_split
 
 
-def convert_value_to_float(value: str)-> float:
+def _convert_value_to_float(value: str)-> float:
     """Convert values to float type
     
     Args:
@@ -92,7 +92,7 @@ def convert_value_to_float(value: str)-> float:
         return float(parts[0])
 
 
-def melt_dataframe(df_clean: pd.DataFrame, id_cols: list, value_cols: list)-> pd.DataFrame:
+def _melt_dataframe(df_clean: pd.DataFrame, id_cols: list, value_cols: list)-> pd.DataFrame:
     """Melt dataframe to turn all year columns into a single year column
     
     Args:
