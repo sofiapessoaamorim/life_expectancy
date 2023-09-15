@@ -31,3 +31,9 @@ if __name__ == "__main__":  # pragma: no cover
     parser.add_argument("--region", "--r", type=str, default="PT", help="Region name")
     args = parser.parse_args()
     load_clean_save_data(args.region)
+
+if __name__ == "__main__": #pragma: no cover
+    parser = argparse.ArgumentParser(description='Example argparse')
+    parser.add_argument("--region", "--r", type=str, default="PT", help='Region name')
+    args = parser.parse_args()
+    load_clean_save_data(args.region)
