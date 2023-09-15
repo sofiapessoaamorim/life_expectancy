@@ -1,15 +1,15 @@
 """Tests for the cleaning module"""
-import pandas as pd
-import unittest
 from unittest.mock import patch, MagicMock
+import pandas as pd
 
 from ..cleaning import clean_data
 from ..main import save_file_to_csv
 from ..load_data import load_csv_file
 
-def test_clean_data(pt_life_expectancy_expected: pd.DataFrame)-> None:
+
+def test_clean_data(pt_life_expectancy_expected: pd.DataFrame) -> None:
     """Run the `clean_data` function and compare the output to the expected output
-    
+
     Args:
         pt_life_expectancy_expected: expected output of the `clean_data` function
     """
@@ -19,25 +19,31 @@ def test_clean_data(pt_life_expectancy_expected: pd.DataFrame)-> None:
     )
 
 
-@patch('pandas.DataFrame.to_csv')
-def test_save_file_to_csv(mock_to_csv: MagicMock, pt_life_expectancy_expected)-> None:
+@patch("pandas.DataFrame.to_csv")
+def test_save_file_to_csv(mock_to_csv: MagicMock, pt_life_expectancy_expected) -> None:
     """Test that the `save_file_to_csv` function saves the file as expected
 
     Args:
         mock_to_csv: mock object for pandas.DataFrame.to_csv
     """
-    mock_region = 'TestRegion'
+    mock_region = "TestRegion"
     mock_df = pt_life_expectancy_expected
 
     save_file_to_csv(mock_df, mock_region)
 
     expected_file_name = f"data/{mock_region.lower()}_life_expectancy.csv"
-    mock_to_csv.assert_called_once_with(
-        expected_file_name, sep=",", index=False
-    )
+    mock_to_csv.assert_called_once_with(expected_file_name, sep=",", index=False)
 
-@patch('pandas.read_csv')
+
+@patch("pandas.read_csv")
 def test_load_csv(mock_read_csv, pt_life_expectancy_expected):
+    """Test that the `load_csv_file` function loads the file as expected
+
+    Args:
+        mock_read_csv: mock object for pandas.read_csv
+        pt_life_expectancy_expected: expected output of the `load_csv_file` function
+
+    """
     mock_df = pt_life_expectancy_expected
     mock_read_csv.return_value = mock_df
 
