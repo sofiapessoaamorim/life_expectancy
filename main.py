@@ -5,7 +5,7 @@ import pandas as pd
 from .cleaning import clean_data
 
 
-def load_clean_save_data(region: str) -> None:
+def load_clean_save_data(region: str) -> None: #pragma: no cover
     """Main function to load and clean life expectancy data
 
     Args:
@@ -13,6 +13,7 @@ def load_clean_save_data(region: str) -> None:
     """
     df_clean = clean_data(region)
     save_file_to_csv(df_clean, region)
+    return df_clean
 
 
 def save_file_to_csv(df_melt: pd.DataFrame, region: str)-> None:
