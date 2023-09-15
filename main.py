@@ -25,13 +25,6 @@ def save_file_to_csv(df_melt: pd.DataFrame, region: str) -> None:
     """
     df_melt.to_csv(f"data/{region.lower()}_life_expectancy.csv", sep=",", index=False)
 
-
-if __name__ == "__main__":  # pragma: no cover
-    parser = argparse.ArgumentParser(description="Example argparse")
-    parser.add_argument("--region", "--r", type=str, default="PT", help="Region name")
-    args = parser.parse_args()
-    load_clean_save_data(args.region)
-
 if __name__ == "__main__": #pragma: no cover
     parser = argparse.ArgumentParser(description='Example argparse')
     parser.add_argument("--region", "--r", type=str, default="PT", help='Region name')
