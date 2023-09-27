@@ -26,8 +26,13 @@ def test_save_file_to_csv(mock_to_csv: MagicMock, pt_life_expectancy_expected) -
     Args:
         mock_to_csv: mock object for pandas.DataFrame.to_csv
     """
+    def _print_success_message(*args, **kwargs):
+        print('File successfully saved')
+    
     mock_region = "TestRegion"
     mock_df = pt_life_expectancy_expected
+
+    mock_to_csv.side_effect= _print_success_message
 
     save_file_to_csv(mock_df, mock_region)
 
