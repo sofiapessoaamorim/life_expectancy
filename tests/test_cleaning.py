@@ -1,16 +1,59 @@
 """Tests for the cleaning module"""
+from unittest.mock import patch, MagicMock
 import pandas as pd
 
-from ..main import load_clean_save_data
-from . import OUTPUT_DIR
+from ..cleaning import clean_data
+from ..main import save_file_to_csv
+from ..load_data import load_csv_file
 
 
-def test_clean_data(pt_life_expectancy_expected):
-    """Run the `clean_data` function and compare the output to the expected output"""
-    load_clean_save_data(region="PT")
-    pt_life_expectancy_actual = pd.read_csv(
-        OUTPUT_DIR / "pt_life_expectancy.csv"
-    )
+def test_clean_data(pt_life_expectancy_expected: pd.DataFrame) -> None:
+    """Run the `clean_data` function and compare the output to the expected output
+
+    Args:
+        pt_life_expectancy_expected: expected output of the `clean_data` function
+    """
+    pt_life_expectancy_actual = clean_data(region="PT")
     pd.testing.assert_frame_equal(
         pt_life_expectancy_actual, pt_life_expectancy_expected
     )
+
+
+@patch("pandas.DataFrame.to_csv")
+def test_save_file_to_csv(mock_to_csv: MagicMock, pt_life_expectancy_expected) -> None:
+    """Test that the `save_file_to_csv` function saves the file as expected
+
+    Args:
+        mock_to_csv: mock object for pandas.DataFrame.to_csv
+    """
+    def _print_success_message(*args, **kwargs):
+        print('File successfully saved')
+    
+    mock_region = "TestRegion"
+    mock_df = pt_life_expectancy_expected
+
+    mock_to_csv.side_effect= _print_success_message
+
+    save_file_to_csv(mock_df, mock_region)
+
+    expected_file_name = f"data/{mock_region.lower()}_life_expectancy.csv"
+    mock_to_csv.assert_called_once_with(expected_file_name, sep=",", index=False)
+
+
+@patch("pandas.read_csv")
+def test_load_csv(mock_read_csv, pt_life_expectancy_expected):
+    """Test that the `load_csv_file` function loads the file as expected
+
+    Args:
+        mock_read_csv: mock object for pandas.read_csv
+        pt_life_expectancy_expected: expected output of the `load_csv_file` function
+
+    """
+    mock_df = pt_life_expectancy_expected
+    mock_read_csv.return_value = mock_df
+
+    result = load_csv_file()
+
+    mock_read_csv.assert_called_once_with("data/eu_life_expectancy_raw.tsv", sep="\t")
+
+    assert result.equals(mock_df)
