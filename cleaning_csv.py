@@ -2,11 +2,12 @@
 """
 import pandas as pd
 import numpy as np
-from .load_data import Country,CSVDataLoader
+from .load_data import Country, CSVDataLoader
 
 
 class DataProcessorCsv:
     """Class to clean data of a pandas DataFrame"""
+
     def __init__(self, file_path: str):
         self.file_path = file_path
 
@@ -33,19 +34,18 @@ class DataProcessorCsv:
 
         return df_melt
 
-
     def get_data(self) -> pd.DataFrame:
         """Function to load life expectancy data
 
         Returns:
             df_split: dataframe with split columns
         """
-        CsvProcessor = CSVDataLoader(self.file_path)
-        df_raw = CsvProcessor.load_data()
+        csv_processor = CSVDataLoader(self.file_path)
+        df_raw = csv_processor.load_data()
         return self._preprocess_data(df_raw)
-    
+
     def _preprocess_data(self, df_raw: pd.DataFrame) -> pd.DataFrame:
-        """Preprocesses raw data in a pandas DataFrame 
+        """Preprocesses raw data in a pandas DataFrame
         by splitting a column and cleaning column names.
 
         Args:
@@ -60,7 +60,7 @@ class DataProcessorCsv:
         df_split = df_raw.drop(columns=["unit,sex,age,geo\\time"], inplace=False)
         df_split.columns = df_split.columns.str.strip()
         return df_split
-    
+
     def _identify_nans_convert_floats(
         self, df_split: pd.DataFrame, value_cols: list
     ) -> pd.DataFrame:
