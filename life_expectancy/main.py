@@ -2,9 +2,9 @@
 """
 import argparse
 import pandas as pd
-from .load_data import DataLoaderStrategy, Country
-from .cleaning_csv import DataProcessorCsv
-from .cleaning_zip import DataProcessorZip
+from life_expectancy.load_data import DataLoaderStrategy, Country
+from life_expectancy.cleaning_csv import DataProcessorCsv
+from life_expectancy.cleaning_zip import DataProcessorZip
 
 
 class CleanDataPipeline:

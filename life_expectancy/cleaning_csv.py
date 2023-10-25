@@ -2,7 +2,7 @@
 """
 import pandas as pd
 import numpy as np
-from .load_data import Country, CSVDataLoader
+from life_expectancy.load_data import Country, CSVDataLoader
 
 
 class DataProcessorCsv:
@@ -29,7 +29,7 @@ class DataProcessorCsv:
         df_melt = self._melt_dataframe(df_clean, id_cols, value_cols)
 
         df_melt = df_melt.dropna()
-        df_melt = df_melt[df_melt["region"] == region.value].reset_index(drop=True)
+        df_melt = df_melt[df_melt["region"] == region].reset_index(drop=True)
         df_melt["year"] = df_melt["year"].astype("int")
 
         return df_melt

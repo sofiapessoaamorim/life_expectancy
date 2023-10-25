@@ -2,9 +2,9 @@
 from unittest.mock import patch, MagicMock
 import pandas as pd
 
-from ..cleaning_csv import DataProcessorCsv
-from ..main import CleanDataPipeline
-from ..load_data import CSVDataLoader, Country
+from life_expectancy.cleaning_csv import DataProcessorCsv
+from life_expectancy.main import CleanDataPipeline
+from life_expectancy.load_data import CSVDataLoader, Country
 
 
 def test_clean_data(pt_life_expectancy_expected: pd.DataFrame) -> None:
@@ -14,7 +14,7 @@ def test_clean_data(pt_life_expectancy_expected: pd.DataFrame) -> None:
         pt_life_expectancy_expected: expected output of the `clean_data` function
     """
     
-    region = Country("PT")
+    region = Country("PT").value
     data_processor = DataProcessorCsv("data/eu_life_expectancy_raw.tsv")
     pt_life_expectancy_actual = data_processor.clean_data(region)
     pd.testing.assert_frame_equal(

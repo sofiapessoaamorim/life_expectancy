@@ -1,7 +1,7 @@
 """Module to clean data of a pandas DataFrame
 """
 import pandas as pd
-from .load_data import Country, ZipDataLoader
+from life_expectancy.load_data import Country, ZipDataLoader
 
 
 class DataProcessorZip:
@@ -23,7 +23,7 @@ class DataProcessorZip:
         """
         df_split = self.get_data()
         df_split = df_split.dropna()
-        df_split = df_split[df_split["region"] == region.value].reset_index(drop=True)
+        df_split = df_split[df_split["region"] == region].reset_index(drop=True)
         df_split["year"] = df_split["year"].astype("int")
 
         return df_split
