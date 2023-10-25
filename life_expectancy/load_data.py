@@ -1,3 +1,4 @@
+# pylint: disable=R0903
 """Module to load data from a csv file into a pandas DataFrame
 """
 from enum import Enum
@@ -92,7 +93,7 @@ class DataLoaderStrategy(ABC):
     @abstractmethod
     def load_data(self):
         """Abstract method to load data from a file."""
-        pass
+
 
 
 class CSVDataLoader(DataLoaderStrategy):
