@@ -31,7 +31,15 @@ jobs:
       - name: Run pytest
         run: |
           pytest --cov
-
-      - name: Run pylint
+          
+      - name: Check Pylint score
         run: |
-          pylint life_expectancy/*.py
+          pylint_output=$(pylint life_expectancy/*.py)
+          pylint_score=$(echo "$pylint_output" | grep -oP '\d+\.\d+\/10' | awk -F'/' '{print $1}')
+          
+          if (( $(bc <<< "$pylint_score < 9.5") )); then
+            echo "Pylint score is below 9.5, failing the workflow."
+            exit 1
+          else
+            echo "Pylint score is above 9.5, workflow continues."
+          fi
