@@ -32,6 +32,5 @@ jobs:
         run: |
           pytest --cov
 
-      - name: Run pylint
-        run: |
-          pylint cleaning.py
+      - name: Run Pylint
+        run: pylint life_expectancy/*.py
